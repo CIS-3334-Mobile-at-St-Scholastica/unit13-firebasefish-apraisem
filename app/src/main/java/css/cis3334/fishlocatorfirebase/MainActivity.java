@@ -1,8 +1,8 @@
 package css.cis3334.fishlocatorfirebase;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     List<Fish> fishList;
     int positionSelected;
     FishFirebaseData fishDataSource;
+    DatabaseReference myFishDbRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setupFirebaseDataChange() {
-        // ToDo - Add code here to update the listview with data from Firebase
+        fishDataSource = new FishFirebaseData();
+        myFishDbRef = fishDataSource.open();
+        myFishDbRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Use the of the new object to get a list of fish objects and save it to the fishList variable so it can be used in other methods
+                Log.d("CIS3334", "Starting onDataChange()");
+                fishList = fishDataSource.getAllFish(dataSnapshot);
+                //Pass the list of fish to the fishAdapter
+                fishAdapter = new FishAdapter(MainActivity.this, android.R.layout.simple_list_item_single_choice, fishList);
+                // Set of the ListView to use the fishAdapter
+                listViewFish.setAdapter(fishAdapter);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.d("CIS3334", "onCancelled: ");
+            }
+        });
+    }
     }
 
     private void setupListView() {

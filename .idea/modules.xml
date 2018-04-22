@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FishLocatorFirebaseStart.iml" filepath="$PROJECT_DIR$/FishLocatorFirebaseStart.iml" />
+      <module fileurl="file://C:\Users\Ashley\AndroidStudioProjects\unit13-firebasefish-apraisem\FishLocatorFirebaseStart.iml" filepath="C:\Users\Ashley\AndroidStudioProjects\unit13-firebasefish-apraisem\FishLocatorFirebaseStart.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\Ashley\AndroidStudioProjects\unit13-firebasefish-apraisem\app\app.iml" filepath="C:\Users\Ashley\AndroidStudioProjects\unit13-firebasefish-apraisem\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/unit13-firebasefish-apraisem.iml" filepath="$PROJECT_DIR$/unit13-firebasefish-apraisem.iml" />
     </modules>
   </component>
 </project>

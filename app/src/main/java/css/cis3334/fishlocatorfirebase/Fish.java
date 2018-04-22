@@ -15,7 +15,7 @@ public class Fish implements Serializable {
     private String locationCaughtLatitude;
     private String locationCaughtLongitude;
 
-    public Fish() {
+    public Fish(String fishSpecies, String fishWeight, String fishDate) {
     }
 
     public Fish(String key, String species, String weightInOz, String dateCaught, String locationCaughtLatitude, String locationCaughtLongitude) {
