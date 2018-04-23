@@ -15,10 +15,6 @@ import java.util.List;
 public class FishFirebaseData {
 
     DatabaseReference myFishDbRef;
-    EditText editTextSpecies;
-    EditText editTextWeight;
-    EditText editTextDate;
-
     public static final String FishDataTag = "Fish Data";
 
     public DatabaseReference open()  {

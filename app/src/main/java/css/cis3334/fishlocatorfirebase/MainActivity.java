@@ -2,6 +2,7 @@ package css.cis3334.fishlocatorfirebase;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -19,6 +22,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+
     Button buttonAdd, buttonDetails, buttonDelete;          // two button widgets
     ListView listViewFish;                                  // listview to display all the fish in the database
     ArrayAdapter<Fish> fishAdapter;
@@ -27,18 +31,38 @@ public class MainActivity extends AppCompatActivity {
     FishFirebaseData fishDataSource;
     DatabaseReference myFishDbRef;
 
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         setupFirebaseDataChange();
         setupListView();
         setupAddButton();
         setupDetailButton();
         setupDeleteButton();
+        mAuth = FirebaseAuth.getInstance(); //declare object for Firebase
+        mAuthListener = new FirebaseAuth.AuthStateListener() { //initialized mAuthListener
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                //track the user when they sign in or out using the firebaseAuth
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // User is signed out
+                    Log.d("CSS3334","onAuthStateChanged - User NOT is signed in");
+                    Intent signInIntent = new Intent(getBaseContext(), LoginActivity.class);
+                    startActivity(signInIntent);
+                }
+            }
+        };
     }
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+    }
     private void setupFirebaseDataChange() {
         fishDataSource = new FishFirebaseData();
         myFishDbRef = fishDataSource.open();
@@ -112,4 +136,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    
 }
